@@ -7,6 +7,7 @@ import {
   RuxTableHeaderCell,
   RuxTableHeaderRow,
   RuxTableRow,
+  RuxTag,
   RuxTooltip,
 } from '@astrouxds/react';
 
@@ -69,13 +70,16 @@ export const Table = ({ withTooltips = false }: { withTooltips?: boolean }) => (
                   placement="left"
                   delay={200}
                 >
-                  {row.value}
+                  <div className="underline decoration-dotted">{row.value}</div>
                 </RuxTooltip>
               ) : (
                 row.value
               )}
             </RuxTableCell>
             <RuxTableCell>
+              {/* <RuxTooltip message="Hey, here's a tooltip!">
+                <RuxTag status="pass" />
+              </RuxTooltip> */}
               <RuxStatus status={row.status} />
             </RuxTableCell>
           </RuxTableRow>
