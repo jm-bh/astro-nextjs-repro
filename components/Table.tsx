@@ -46,10 +46,10 @@ const data: { label: string; value: number; status: Status }[] = [
   },
 ];
 
-export const Table = ({ withTooltips = false }: { withTooltips?: boolean }) => (
+export const Table = ({ withDiv = false }: { withDiv?: boolean }) => (
   <div className="flex flex-col gap-2">
     <h1 className="text-2xl font-bold w-full text-center">
-      {withTooltips ? 'With' : 'Without'} Tooltips
+      {withDiv ? 'With' : 'Without'} <code>{'<div>'}</code>
     </h1>
     <RuxTable>
       <RuxTableHeader>
@@ -64,22 +64,16 @@ export const Table = ({ withTooltips = false }: { withTooltips?: boolean }) => (
           <RuxTableRow key={i}>
             <RuxTableCell>{row.label}</RuxTableCell>
             <RuxTableCell>
-              {withTooltips ? (
-                <RuxTooltip
-                  message="Hey, here's a tooltip!"
-                  placement="left"
-                  delay={200}
-                >
-                  <div className="underline decoration-dotted">{row.value}</div>
-                </RuxTooltip>
-              ) : (
-                row.value
-              )}
+              <RuxTooltip
+                message="Hey, here's a tooltip!"
+                placement="left"
+                delay={200}
+              >
+                {/* ! block-level elements inside a tooltip render weird */}
+                {withDiv ? <div>{row.value}</div> : row.value}
+              </RuxTooltip>
             </RuxTableCell>
             <RuxTableCell>
-              {/* <RuxTooltip message="Hey, here's a tooltip!">
-                <RuxTag status="pass" />
-              </RuxTooltip> */}
               <RuxStatus status={row.status} />
             </RuxTableCell>
           </RuxTableRow>
